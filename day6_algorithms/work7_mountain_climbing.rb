@@ -99,9 +99,12 @@ def climb(mountain)
           # mark the starting position
           starting_position[index] = '^'
           # puts starting_position
+
+          # for each subset route, append the starting position
           routes_subset.each do |route_in_subset|
-            routes.push( route_in_subset.concat([starting_position]) )
+           routes.push( route_in_subset.concat([starting_position]) )
           end
+
         end
       #end
 
@@ -116,8 +119,9 @@ def climb(mountain)
           starting_position[index] = '^'
           # puts starting_position
           routes_subset.each do |route_in_subset|
-            routes.push( route_in_subset.concat([starting_position]) )
+           routes.push( route_in_subset.concat([starting_position]) )
           end
+
         end
 
       #end
