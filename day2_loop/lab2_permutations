@@ -1,0 +1,20 @@
+inputs = Array.new(3)
+
+print "Input 1: "
+inputs[0] = gets.chomp
+
+print "Input 2: "
+inputs[1] = gets.chomp
+
+print "Input 3: "
+inputs[2] = gets.chomp
+
+# numbers = [input1, input2, input3]
+
+for i in 0..2
+  for j in 0..2
+  	for k in 0..2
+       puts "#{inputs[i]} #{inputs[j]} #{inputs[k]}"
+  	end
+  end 
+end

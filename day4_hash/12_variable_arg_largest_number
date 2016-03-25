@@ -1,0 +1,17 @@
+def largest_number(*numbers)
+  largest = numbers[0]
+  numbers.each do |number|
+    if number > largest
+      largest = number
+    end
+  end
+  largest
+end
+
+def largest_number_2(*numbers)
+  # numbers.sort.last
+  numbers.max
+end
+
+puts largest_number(6, 9, 8, 10, 3)
+puts largest_number_2 6, 9, 8, 10, 3
