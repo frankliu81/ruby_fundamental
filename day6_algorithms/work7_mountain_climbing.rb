@@ -1,3 +1,5 @@
+require "byebug"
+
 # 8-bit mountain climbing.
 #
 
@@ -68,7 +70,7 @@
 #
 #
 
-# climb helper iterates the starting position
+# climb iterates the starting positions
 # at the bottom row, then calls the recusrive climb_helper
 def climb(mountain)
   # take the last row
@@ -105,6 +107,12 @@ def climb(mountain)
            routes.push( route_in_subset.concat([starting_position]) )
           end
 
+          # to undo: old bug that was causing less routes to be returned
+          # uncomment this in four places in this code to reproduce the bug
+          # because i have two routes returned from routes_subset
+          # but I am pushing both into routes
+          #routes.push( routes_subset.concat([starting_position]) );
+
         end
       #end
 
@@ -123,6 +131,8 @@ def climb(mountain)
           routes_subset.each do |route_in_subset|
            routes.push( route_in_subset.concat([starting_position]) )
           end
+          #to undo: old bug
+          #routes.push( routes_subset.concat([starting_position]) );
 
         end
 
@@ -131,9 +141,10 @@ def climb(mountain)
     end
   end
 
-  routes
+  return routes
 end
 
+# climb helper climbs each mountain from a starting position
 def climb_helper(mountain, pos)
 
   routes = []
@@ -147,51 +158,54 @@ def climb_helper(mountain, pos)
     return routes
   end
 
-  # call climb helper on the smaller mountain, with starting position
-  # if (pos - 1 > 0 )
-    # if the left upper char is a 'O'
-    if mountain[-2][pos-1] == 'O'
-      #puts "climb helper: calling helper on left: #{pos-1}"
-      routes_subset = climb_helper(mountain[0..-2], pos-1)
+  # call climb helper on the smaller mountain, with a starting position
+  # if the left upper char is a 'O'
+  if mountain[-2][pos-1] == 'O'
+    #puts "climb helper: calling helper on left: #{pos-1}"
+    routes_subset = climb_helper(mountain[0..-2], pos-1)
 
-      # initialize starting position with all blanks
-      starting_position = " "*mountain[-1].length
-      # mark the starting position
-      starting_position[pos] = '^'
-      # puts starting_position
+    # initialize starting position with all blanks
+    starting_position = " "*mountain[-1].length
+    # mark the starting position
+    starting_position[pos] = '^'
+    # puts starting_position
 
-      routes_subset.each do |route_in_subset|
-        routes.push( route_in_subset.concat([starting_position]) )
-      end
-      # puts "routes left begin routes_subset.count"
-      # print routes_subset.count
-      # puts "routes left end"
-      # puts
+    routes_subset.each do |route_in_subset|
+      routes.push( route_in_subset.concat([starting_position]) )
     end
-  # end
 
-  # if (pos + 1 < mountain[-1].length )
+    #to undo: old bug
+    #routes.push( routes_subset.concat([starting_position]) );
 
-    if mountain[-2][pos+1] == 'O'
-      #puts "climb helper: calling helper on right #{pos+1}"
-      routes_subset = climb_helper(mountain[0..-2], pos+1)
-      # initialize starting position with all blanks
-      starting_position = " "*mountain[-1].length
-      # mark the starting position
-      starting_position[pos] = '^'
-      # puts "starting_position:#{starting_position}"
-      #puts "route_subset right begin"
-      #puts routes_subset
-      #puts "route_subset right end"
-      # puts "routes right begin routes_subset.count"
-      # print routes_subset.count
-      # puts "routes right end"
-      # puts
-      routes_subset.each do |route_in_subset|
-        routes.push( route_in_subset.concat([starting_position]) )
-      end
+    # puts "routes left begin routes_subset.count"
+    # print routes_subset.count
+    # puts "routes left end"
+    # puts
+  end
+
+   # if the right upper char is a 'O'
+  if mountain[-2][pos+1] == 'O'
+    #puts "climb helper: calling helper on right #{pos+1}"
+    routes_subset = climb_helper(mountain[0..-2], pos+1)
+    # initialize starting position with all blanks
+    starting_position = " "*mountain[-1].length
+    # mark the starting position
+    starting_position[pos] = '^'
+    # puts "starting_position:#{starting_position}"
+    #puts "route_subset right begin"
+    #puts routes_subset
+    #puts "route_subset right end"
+    # puts "routes right begin routes_subset.count"
+    # print routes_subset.count
+    # puts "routes right end"
+    # puts
+
+    routes_subset.each do |route_in_subset|
+      routes.push( route_in_subset.concat([starting_position]) )
     end
-  # end
+
+    # to undo: old bug
+  end
 
   return routes
 end
@@ -274,7 +288,7 @@ mountain_c =   ["   O   "]
 mountain_d =   [" O ",
                 "O O"]
 
-mountain_e = build_mountain(5)
+mountain_e = build_mountain(4)
 
 #print_mountain mountain_a
 #puts
@@ -308,6 +322,8 @@ mountain_e = build_mountain(5)
 # puts "Distinct Routes: "
 # print_routes routes_a
 # puts
+
+byebug
 
 routes_e = climb(mountain_e)
 puts "Mountain: "

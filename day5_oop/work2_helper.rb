@@ -1,6 +1,6 @@
 require "time"
 
-module HelperMethods_assign2
+module HelperMethods_work2
   # @@a is a module ariable
   @@a = 3
   @@b = 5

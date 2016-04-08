@@ -1,4 +1,4 @@
-require "./assign2_helper.rb"
+require "./work2_helper.rb"
 
 class Animal
   attr_accessor :name, :alive
@@ -11,7 +11,7 @@ end
 
 class Cat < Animal
 
-  include HelperMethods_assign2
+  include HelperMethods_work2
 
   def catch(bird)
     if random_number(100) > 50

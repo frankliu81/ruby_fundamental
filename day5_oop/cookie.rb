@@ -5,7 +5,7 @@ require "./helper_methods.rb"
 # Convention to name the class is CamelClass
 # Typical first_name.rb, containing one class FirstName
 class Cookie
-  
+
   attr_accessor :name
   include HelperMethods
   MAX_SUGAR = 10
@@ -34,7 +34,7 @@ class Cookie
   # attr_reader :flour
   # attr_writer :flour
 
-  # this defines a clas method called 'info', self refers to cookie
+  # this defines a class method called 'info', self refers to cookie
   def self.info
     "I'm the Cookie class!"
   end
