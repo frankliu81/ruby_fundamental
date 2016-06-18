@@ -77,7 +77,7 @@ def pascal_triangle(n)
     (n-1).downto(0).each do |j|
 
         num_space = 1
-        # for the second last row to the last row, adjust
+        # for the second last row to the first row, adjust
         # the space according to the space difference between the
         # row below (ie. j+1) and the current row
         if j < (n-1)
